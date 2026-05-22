@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background: #fff; color: #333; }
+    .ticket { border: 2px solid #0d9488; border-radius: 10px; padding: 20px; max-width: 600px; }
+    .header { border-bottom: 2px dashed #e2e8f0; padding-bottom: 15px; margin-bottom: 15px; }
+    .title { font-size: 20px; font-weight: bold; color: #0d9488; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+    .label { font-size: 11px; color: #666; text-transform: uppercase; }
+    .value { font-size: 14px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="ticket">
+    <div class="header">
+      <div class="title">INDIGO AIRLINES - BOARDING PASS</div>
+      <div style="font-size: 12px; color: #666; margin-top: 5px;">PNR: IN-654219B</div>
+    </div>
+    <div class="grid">
+      <div><div class="label">Passenger</div><div class="value">Rahul Kumar</div></div>
+      <div><div class="label">Date</div><div class="value">15 June 2026</div></div>
+      <div><div class="label">From</div><div class="value">New Delhi (DEL)</div></div>
+      <div><div class="label">To</div><div class="value">Mumbai </div></div>
+      <div><div class="label">Flight Number</div><div class="value">6E-2042</div></div>
+      <div><div class="label">Seat / Class</div><div class="value">12A / Economy</div></div>
+    </div>
+    <div style="border-top: 2px dashed #e2e8f0; padding-top: 15px;">
+      <div class="value" style="color: #0d9488;">HOTEL STAY CONFIRMED</div>
+      <div class="grid" style="margin-top: 10px;">
+        <div><div class="label">Hotel</div><div class="value">Taj Exotica Resort & Spa, Goa</div></div>
+        <div><div class="label">Duration</div><div class="value">2 Nights (Check-out: 19 June)</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

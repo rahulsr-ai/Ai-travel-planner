@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+
+:root {
+  /* Brand Theme Colors (Teal Palette) */
+  --brand-primary: #0d9488;       /* teal-600 */
+  --brand-hover: #0f766e;         /* teal-700 */
+  --brand-dark: #042f2e;          /* teal-950 */
+  --brand-light: #f0fdfa;         /* teal-50 */
+  
+  /* Modern Blended Layout Colors */
+  --layout-bg: #f5f5f4;           /* stone-100: Soft earthy slight white tone */
+  --layout-card-blend: #fafaf9;    /* stone-50: Cards will bleed cleanly into this */
+  --layout-border: #e7e5e4;        /* stone-200: Ultra-thin soft split dividers */
+  --layout-text: #1c1917;          /* stone-900: Deep natural tone instead of pitch black */
+  --layout-muted: #78716c;         /* stone-500: Subdued readable text */
+}

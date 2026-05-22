@@ -1,0 +1,45 @@
+
+# 1. Dependency Directories (Exclude heavy modules)
+**/node_modules/
+node_modules/
+
+# 2. Local Environment Configuration Files (Exclude critical credentials)
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+.env
+
+# 3. Production Build Artifacts Output
+**/dist/
+**/build/
+**/.next/
+out/
+
+# 4. Local Development Cache & Temporary Assets Storage
+**/.turbo/
+**/.cache/
+**/.eslintcache
+**/.tmp/
+**/tmp/
+.tmp/
+tmp/
+
+# 5. OS Metadata & IDE Configuration Layout Files
+.DS_Store
+Thumbs.db
+**/.vscode/
+**/.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# 6. Debug & Engine Execution Log Traces
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
