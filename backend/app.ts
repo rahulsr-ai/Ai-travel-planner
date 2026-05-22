@@ -1,11 +1,12 @@
+import dotenv from 'dotenv'
+dotenv.config();;
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import authRoutes from './routes/auth.Route';
 import itineraryRoute from './routes/itinerary.Route';
 import connectDB from './config/db';
 
-dotenv.config();
 
 // Database Connection 
 connectDB()

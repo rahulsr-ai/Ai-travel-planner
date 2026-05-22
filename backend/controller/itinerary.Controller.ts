@@ -8,7 +8,7 @@ import { strictSystemPrompt } from '../config/prompts';
 
 // Gemini client initialize karein (.env mein GEMINI_API_KEY hona zaroori hai)
 // GEMINI_API_KEY="AIzaSyCvHnfWhZELv2Uw4XIPrgvJDcLhJ_OFgw0"
-const ai = new GoogleGenAI({ apiKey: 'AIzaSyCvHnfWhZELv2Uw4XIPrgvJDcLhJ_OFgw0' });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 
 // ===============================
