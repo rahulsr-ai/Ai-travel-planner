@@ -14,7 +14,7 @@ export const SharedView: React.FC = () => {
   useEffect(() => {
     const fetchSharedPlan = async () => {
       try {
-        // Public route to allow unauthenticated access to view plans
+
         const res = await API.get(`/v1/itinerary/shared/${id}`);
         if (res.data.success) {
           setItinerary(res.data.itinerary);
@@ -59,7 +59,7 @@ export const SharedView: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col pb-20" style={{ backgroundColor: 'var(--layout-bg)' }}>
 
-      {/* BLENDED TOP HEADER BAR */}
+    
       <header className="px-4 pt-4 pb-6 text-center border-b" style={{ borderColor: 'var(--layout-border)' }}>
         <div className="max-w-3xl mx-auto">
           <span
@@ -83,16 +83,14 @@ export const SharedView: React.FC = () => {
         </div>
       </header>
 
-      {/* CHRONOLOGICAL TIMELINE STREAM */}
       <main className="max-w-2xl w-full mx-auto px-4 mt-12 flex-1">
 
-        {/* Dynamic Vertical Timeline Axis Line */}
+       
         <div className="space-y-12 relative before:absolute before:inset-y-2 before:left-4 sm:before:left-6 before:w-[1.5px] before:bg-stone-300/60">
 
           {itinerary.plan.days.map((day) => (
             <div key={day.dayNumber} className="relative pl-12 sm:pl-16 group">
 
-              {/* Day Badge Node Marker */}
               <div
                 className="absolute left-0 top-0 w-8 h-8 sm:w-12 sm:h-12 rounded-xl flex flex-col items-center justify-center font-black text-[10px] sm:text-xs text-white shadow-sm transition-transform duration-200 group-hover:scale-105"
                 style={{ backgroundColor: 'var(--brand-primary)' }}
@@ -101,22 +99,21 @@ export const SharedView: React.FC = () => {
                 <span className="text-xs sm:text-sm -mt-0.5">{day.dayNumber}</span>
               </div>
 
-              {/* Day Theme Title Block */}
+           
               <div className="mb-4 pt-1 sm:pt-2">
                 <h3 className="font-extrabold text-lg sm:text-xl tracking-tight" style={{ color: 'var(--layout-text)' }}>
                   {day.theme || `Day ${day.dayNumber} Exploration`}
                 </h3>
               </div>
 
-              {/* Location Stack Blocks */}
+            
               <div className="space-y-5">
                 {day.locations?.map((loc, idx) => (
                   <div
                     key={idx}
                     className="rounded-2xl p-5 sm:p-6 border border-transparent transition-all hover:border-stone-300/50"
-                    style={{ backgroundColor: 'var(--layout-card-blend)' }}
-                  >
-                    {/* Location Title & Subtitle row */}
+                    style={{ backgroundColor: 'var(--layout-card-blend)' }}>
+                   
                     <div className="flex flex-wrap items-start justify-between gap-2 border-b pb-3 mb-4" style={{ borderColor: 'var(--layout-border)' }}>
                       <div>
                         <h4 className="font-bold text-base sm:text-lg tracking-tight text-stone-900">
@@ -139,12 +136,12 @@ export const SharedView: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Operational Short Details */}
+                   
                     <p className="text-sm leading-relaxed text-stone-700 font-medium">
                       {loc.shortDescription}
                     </p>
 
-                    {/* AI Recommendation Banner Callout */}
+                    {/* AI Recommendation  */}
                     <div className="mt-4 p-3 rounded-xl border border-dashed text-xs text-stone-600 bg-stone-100/50" style={{ borderColor: 'var(--layout-border)' }}>
                       <p className="leading-relaxed">
                         <span className="font-bold" style={{ color: 'var(--brand-primary)' }}>AI Insight:</span> {loc.aiRecommendationReason}

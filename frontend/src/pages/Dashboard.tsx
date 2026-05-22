@@ -22,7 +22,6 @@ export const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
-  // STATE TO TRACK WHICH CARD'S LINK IS COPIED
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,14 +42,14 @@ export const Dashboard: React.FC = () => {
 
   // ACTION HANDLER FOR THE COPY BUTTON
   const handleShareClick = async (e: React.MouseEvent, id: string) => {
-    e.stopPropagation(); // Prevents the card click navigation detour
+    e.stopPropagation(); 
 
     const shareableUrl = `${window.location.origin}/share/${id}`;
 
     try {
       await navigator.clipboard.writeText(shareableUrl);
       setCopiedId(id);
-      setTimeout(() => setCopiedId(null), 2000); // Resets feedback after 2 seconds
+      setTimeout(() => setCopiedId(null), 2000); 
     } catch (err) {
       console.error('Failed to copy text to clipboard', err);
     }

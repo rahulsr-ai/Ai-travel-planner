@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '.././models/User.schema'; // .js extension NodeNext resolution ke liye zaroori hai
+import { User } from '.././models/User.schema'; 
 
 const generateToken = (id: string): string => {
     return jwt.sign({ id }, process.env.JWT_SECRET as string, {

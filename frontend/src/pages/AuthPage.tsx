@@ -119,7 +119,7 @@ export const AuthPage: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border placeholder-slate-400 text-slate-900 rounded-lg focus:outline-none text-sm transition-all focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
                   style={{ borderColor: 'var(--layout-border)' }}
-                  placeholder="Rahul Kumar"
+                  placeholder="Rahul Rawat"
                 />
               </div>
             )}

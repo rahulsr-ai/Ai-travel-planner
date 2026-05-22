@@ -6,21 +6,17 @@ import { Request, Response } from 'express';
 import { strictSystemPrompt } from '../config/prompts';
 
 
-// Gemini client initialize karein (.env mein GEMINI_API_KEY hona zaroori hai)
-// GEMINI_API_KEY="AIzaSyCvHnfWhZELv2Uw4XIPrgvJDcLhJ_OFgw0"
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 
-// ===============================
-// GENERATE ITINERARY
-// ===============================
 
+// GENERATE ITINERARY
 export const generateItinerary = async (req: any, res: Response): Promise<void> => {
-  console.log("\n=================== 🚀 ADVANCED AI EXTRACTION START ===================");
 
   try {
     if (!req.file) {
-      console.error("❌ [Pipeline Error] No file payload received in req.file");
+
       res.status(400).json({ success: false, message: 'Please upload a travel document (PDF or Image)' });
       return;
     }
@@ -28,35 +24,28 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
     const mimeType = req.file.mimetype;
     let extractedText = "";
 
-    console.log(`📌 [File Metadata] Name: ${req.file.originalname} | Mime: ${mimeType} | Size: ${(req.file.size / 1024).toFixed(2)} KB`);
 
     let geminiContentPayload: any[] = [];
 
-    // ==========================================
     // LAYER 1: SAFE TEXT EXTRACTION PIPELINE
-    // ==========================================
     if (mimeType === 'application/pdf') {
-      console.log("📂 [Step 1] Running Native SmartPDFParser via pdf-parse-new...");
 
-      try {
-        const parser = new PdfParse.SmartPDFParser({
-          oversaturationFactor: 2.0,
-          enableFastPath: true
-        });
 
-        const result = await parser.parse(req.file.buffer);
-        console.log(`📊 [Parser Checkpoint] Parsed pages total count: ${result.numpages}`);
+      const parser = new PdfParse.SmartPDFParser({
+        oversaturationFactor: 2.0,
+        enableFastPath: true
+      });
 
-        extractedText = result.text || "";
-        console.log(`📄 [Native Read Success] Extracted string length: ${extractedText.trim().length} chars.`);
-      } catch (pdfErr: any) {
-        console.warn("⚠️ [Native Read Intercepted] Internal syntax layout error:", pdfErr.message);
-      }
+      const result = await parser.parse(req.file.buffer);
+
+      extractedText = result.text || "";
+
+
 
       if (extractedText && extractedText.trim().length > 30) {
         geminiContentPayload = [`${strictSystemPrompt}\n\nHere is the extracted text from the booking document:\n${extractedText}`];
       } else {
-        console.log("🔄 [Fallback Trigger] Low text count. Uploading raw PDF bytes inline to Gemini Vision...");
+
         geminiContentPayload = [
           strictSystemPrompt,
           {
@@ -69,7 +58,7 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
       }
 
     } else if (mimeType.startsWith('image/')) {
-      console.log("🖼️ [Step 1] Processing raw image data content direct to Gemini payload...");
+     
       geminiContentPayload = [
         strictSystemPrompt,
         {
@@ -84,11 +73,8 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
       return;
     }
 
-    // ==========================================
-    // LAYER 2: GEMINI INFERENCE PROCESSING
-    // ==========================================
-    console.log("🤖 [Step 2] Transmitting structured contents payload to gemini-2.5-flash...");
 
+    // LAYER 2: GEMINI INFERENCE PROCESSING
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: geminiContentPayload,
@@ -109,15 +95,11 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
       finalCleanJson = finalCleanJson.replace(/```/g, "").trim();
     }
 
-    console.log("📥 [Step 3] Transforming JSON stream strings into object mapping layout...");
     let aiData = JSON.parse(finalCleanJson);
 
-    // ==========================================
     // ⚡ FIXED: SELF-HEALING SCHEMATIC COHESION
-    // ==========================================
     if (!aiData.plan?.days || aiData.plan.days.length === 0 || aiData.destination === "Unknown" || !aiData.plan.days[0].locations) {
-      console.warn("⚠️ AI payload structures arrived sparse or corrupted. Injecting fully compatible locations dataset...");
-
+   
       aiData.destination = !aiData.destination || aiData.destination.includes("Unknown") ? "Goa, India" : aiData.destination;
       aiData.startDate = !aiData.startDate || aiData.startDate.includes("Unknown") ? "2026-06-15" : aiData.startDate;
       aiData.durationDays = 3;
@@ -173,27 +155,20 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
       };
     }
 
-    // ==========================================
     // LAYER 3: MONGO DATA SYSTEM WRITES
-    // ==========================================
-    console.log("💾 [Step 4] Launching persistence schema save models inside MongoDB...");
     const authenticatedUser = req.user?.id || req.user?._id;
 
 
 
-    // --- DATABASE SAVING ENGINE MODIFICATION ---
     const newItinerary = await Itinerary.create({
       user: authenticatedUser,
-      passengerName: aiData.passengerName || 'Rahul Kumar', // ⚡ Saved smoothly here
+      passengerName: aiData.passengerName || 'Rahul Kumar',
       destination: aiData.destination,
       startDate: aiData.startDate,
       durationDays: aiData.durationDays,
       plan: aiData.plan
     });
 
-
-    console.log(`🎉 [Success Milestone] Saved Record MongoDB Reference Object ID -> ${newItinerary._id}`);
-    console.log("=================== 🏁 ADVANCED AI EXTRACTION FINISHED ===================\n");
 
     res.status(201).json({
       success: true,
@@ -202,7 +177,6 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
     });
 
   } catch (error: any) {
-    console.error('\n💥 [Pipeline Critical Failure Intercepted]:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to compile your travel schedules successfully.',
@@ -220,7 +194,7 @@ export const generateItinerary = async (req: any, res: Response): Promise<void> 
 // route:   GET /api/v1/itinerary/history
 export const getUserHistory = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    // req.user.id hume authMiddleware se milegi
+    
     const history = await Itinerary.find({ user: req.user?.id }).sort({ createdAt: -1 });
 
     res.status(200).json({

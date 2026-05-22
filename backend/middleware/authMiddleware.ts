@@ -23,8 +23,8 @@ export const protect = async (req: AuthenticatedRequest, res: Response, next: Ne
 
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+  
     
-    // Request object mein user data attach kar rahe hain
     req.user = { id: decoded.id };
     
     next();
