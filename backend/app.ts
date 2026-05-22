@@ -15,9 +15,12 @@ connectDB()
 const app = express();
 
 app.use(cors({ 
+    // origin: ['https://tripaxis.netlify.app', "http://localhost:5173"],
     origin: ['https://tripaxis.netlify.app'],
     credentials: true
 }));
+
+
 app.use(express.json());
 
 
