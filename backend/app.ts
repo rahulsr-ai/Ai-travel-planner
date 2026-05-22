@@ -13,7 +13,10 @@ connectDB()
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ 
+    origin: ['https://tripaxis.netlify.app/login'],
+    credentials: true
+}));
 app.use(express.json());
 
 
@@ -21,7 +24,6 @@ app.get('/', (req, res) => {
     return res.json({ message: 'All Good ' }).status(200)
 })
 
-// Main Auth Route Link
 app.use('/api/v1/auth', authRoutes);
 
 app.use('/api/v1/itinerary', itineraryRoute);

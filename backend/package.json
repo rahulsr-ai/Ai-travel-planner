@@ -7,7 +7,6 @@
     "dev": "npx ts-node-dev --respawn --transpile-only app.ts",
     "build": "tsc",
     "start": "node dist/app.js",
-    "prepare": "husky install",
     "lint": "eslint . --ext .ts",
     "type-check": "tsc --noEmit"
   },
